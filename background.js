@@ -25,6 +25,13 @@ function addBookmark(folderId, bookmarkTitle, bookmarkUrl) {
   }
 }
 
+// function that retives a file from github
+async function getGithubFile(url) {
+  const response = await fetch(url);
+  const data = await response.text();
+  return data;
+}
+
 (async () => {
   const exampleFolderid = await findOrCreateFolder();
   console.log("exampleFolderid: ", exampleFolderid);
