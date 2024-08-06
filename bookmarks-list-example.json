@@ -1,14 +1,16 @@
-[
+{
+  "SocialNetworks": [
     {
-        "title": "Google",
-        "url": "https://www.google.com"
+      "title": "Google",
+      "url": "https://www.google.com"
     },
     {
-        "title": "Facebook",
-        "url": "https://www.facebook.com"
+      "title": "Facebook",
+      "url": "https://www.facebook.com"
     },
     {
-        "title": "Twitter",
-        "url": "https://www.twitter.com"
+      "title": "Twitter",
+      "url": "https://www.twitter.com"
     }
-]
+  ]
+}
