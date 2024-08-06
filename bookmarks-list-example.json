@@ -11,6 +11,10 @@
     {
       "title": "Twitter",
       "url": "https://www.twitter.com"
+    },
+    {
+      "title": "Instagram",
+      "url": "https://www.instagram.com"
     }
   ],
   "Utils": [
@@ -35,10 +39,6 @@
     {
       "title": "BBC",
       "url": "https://www.bbc.com"
-    },
-    {
-      "title": "Al Jazeera",
-      "url": "https://www.aljazeera.com"
     }
   ]
 }
