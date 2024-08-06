@@ -38,23 +38,5 @@
       "title": "MDN Web Docs",
       "url": "https://developer.mozilla.org"
     }
-  ],
-  "News": [
-    {
-      "title": "CNN",
-      "url": "https://www.cnn.com"
-    },
-    {
-      "title": "BBC",
-      "url": "https://www.bbc.com"
-    },
-    {
-      "title": "Al Jazeera",
-      "url": "https://www.aljazeera.com"
-    },
-    {
-      "title": "The Guardian",
-      "url": "https://www.theguardian.com"
-    }
   ]
 }

@@ -135,7 +135,7 @@ async function findBookmark(bookmarkTitle, bookmarkUrl) {
 
 // function that gets file from github and returns the json
 async function getBookmarks() {
-  const response = await fetch(FILE_LOCATION);
+  const response = await fetch(FILE_LOCATION, { cache: "no-store" });
   if (!response.ok) {
     console.error("Failed to fetch bookmarks file");
     return;
@@ -231,5 +231,5 @@ async function getBookmarks() {
 
     socialId = await findFolder("Socials", mainFolderId);
     console.log("Socials folder ID: ", socialId);
-  }, 60000);
+  }, 10000);
 })();
