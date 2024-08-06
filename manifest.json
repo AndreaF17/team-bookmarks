@@ -1,0 +1,10 @@
+{
+  "name": "Shared Bookmarks Manager",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "This extension is a starting point to create a real extension.",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["bookmarks", "storage"]
+}
