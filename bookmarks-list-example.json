@@ -11,6 +11,14 @@
     {
       "title": "Instagram",
       "url": "https://www.instagram.com"
+    },
+    {
+      "title": "Twitter",
+      "url": "https://www.twitter.com"
+    },
+    {
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com"
     }
   ],
   "Utils": [
@@ -25,6 +33,10 @@
     {
       "title": "W3Schools",
       "url": "https://www.w3schools.com"
+    },
+    {
+      "title": "MDN Web Docs",
+      "url": "https://developer.mozilla.org"
     }
   ],
   "News": [
@@ -35,6 +47,14 @@
     {
       "title": "BBC",
       "url": "https://www.bbc.com"
+    },
+    {
+      "title": "Al Jazeera",
+      "url": "https://www.aljazeera.com"
+    },
+    {
+      "title": "The Guardian",
+      "url": "https://www.theguardian.com"
     }
   ]
 }
