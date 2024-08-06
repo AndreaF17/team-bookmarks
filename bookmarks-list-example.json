@@ -1,16 +1,44 @@
 {
   "Socials": [
     {
-      "title": "Google.com",
+      "title": "Google",
       "url": "https://www.google.com"
     },
     {
-      "title": "Facebook.com",
+      "title": "Facebook",
       "url": "https://www.facebook.com"
     },
     {
-      "title": "Twitter.com",
+      "title": "Twitter",
       "url": "https://www.twitter.com"
+    }
+  ],
+  "Utils": [
+    {
+      "title": "Github",
+      "url": "https://www.github.com"
+    },
+    {
+      "title": "Stackoverflow",
+      "url": "https://www.stackoverflow.com"
+    },
+    {
+      "title": "W3Schools",
+      "url": "https://www.w3schools.com"
+    }
+  ],
+  "News": [
+    {
+      "title": "CNN",
+      "url": "https://www.cnn.com"
+    },
+    {
+      "title": "BBC",
+      "url": "https://www.bbc.com"
+    },
+    {
+      "title": "Al Jazeera",
+      "url": "https://www.aljazeera.com"
     }
   ]
 }
