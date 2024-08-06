@@ -20,23 +20,5 @@
       "title": "LinkedIn",
       "url": "https://www.linkedin.com"
     }
-  ],
-  "Utils": [
-    {
-      "title": "Github",
-      "url": "https://www.github.com"
-    },
-    {
-      "title": "Stackoverflow",
-      "url": "https://www.stackoverflow.com"
-    },
-    {
-      "title": "W3Schools",
-      "url": "https://www.w3schools.com"
-    },
-    {
-      "title": "MDN Web Docs",
-      "url": "https://developer.mozilla.org"
-    }
   ]
 }
