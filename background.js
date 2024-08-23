@@ -1,25 +1,92 @@
-const MAIN_FOLDER_NAME = "Shared Bookmarks";
-const FILE_LOCATION =
-  "https://raw.githubusercontent.com/AndreaF17/team-bookmarks/main/bookmarks-list-example.json";
+const MAIN_FOLDER_NAME = "Shared-Bookmarks";
+const JSON_URL = "";
+
+async function findBookmarkFolderByName(folderName) {
+  return new Promise((resolve, reject) => {
+    chrome.bookmarks.search({ title: folderName }, function (results) {
+      if (chrome.runtime.lastError) {
+        console.error("Error searching bookmarks: ", chrome.runtime.lastError);
+        reject(chrome.runtime.lastError);
+        return;
+      }
+      let folderId = [];
+      // Iterate through search results
+      for (let i = 0; i < results.length; i++) {
+        // Check if the result is a folder (it doesn't have a 'url' property)
+        if (results[i].url === undefined) {
+          console.log("Folder found: " + results[i].title);
+          folderId.push(results[i].id);
+        }
+      }
+      resolve(folderId);
+    });
+  });
+}
+
+const removeOldData = async () => {
+  console.log("Removing old data");
+  try {
+    const list_oldFolders = await findBookmarkFolderByName(MAIN_FOLDER_NAME);
+
+    if (list_oldFolders.length > 0) {
+      for (const folderId of list_oldFolders) {
+        chrome.bookmarks.removeTree(folderId, () => {
+          if (chrome.runtime.lastError) {
+            console.error("Error removing folder: ", chrome.runtime.lastError);
+          }
+        });
+      }
+    }
+    console.log("Storage cleared");
+  } catch (error) {
+    console.error("Error in removeOldData: ", error);
+  }
+};
 
 // Define findOrCreateFolder as an async function
 async function createFolder(folderName) {
   if (!MAIN_DIR_ID) {
     console.error("Main directory not found");
+    return;
   }
 
   console.debug("looking for folder: ", folderName);
   let folderId;
-  const folders = await chrome.bookmarks.search({ title: folderName, parent });
-  if (folders.length > 0) {
-    console.debug(folderName, " folder already exists");
-    folderId = folders[0].id;
-  } else {
-    console.debug(folderName, " folder does not exist, creating...");
-    const newFolder = await chrome.bookmarks.create({ title: folderName });
-    folderId = newFolder.id;
+  try {
+    const folders = await new Promise((resolve, reject) => {
+      chrome.bookmarks.search({ title: folderName, parent }, (results) => {
+        if (chrome.runtime.lastError) {
+          console.error(
+            "Error searching for folder: ",
+            chrome.runtime.lastError
+          );
+          reject(chrome.runtime.lastError);
+          return;
+        }
+        resolve(results);
+      });
+    });
+
+    if (folders.length > 0) {
+      console.debug(folderName, " folder already exists");
+      folderId = folders[0].id;
+    } else {
+      console.debug(folderName, " folder does not exist, creating...");
+      const newFolder = await new Promise((resolve, reject) => {
+        chrome.bookmarks.create({ title: folderName }, (folder) => {
+          if (chrome.runtime.lastError) {
+            console.error("Error creating folder: ", chrome.runtime.lastError);
+            reject(chrome.runtime.lastError);
+            return;
+          }
+          resolve(folder);
+        });
+      });
+      folderId = newFolder.id;
+    }
+  } catch (error) {
+    console.error("Error in createFolder: ", error);
   }
-  return folderId;
 }
 
 // function that creates a folder unter the mainDir
@@ -135,13 +202,17 @@ async function findBookmark(bookmarkTitle, bookmarkUrl) {
 
 // function that gets file from github and returns the json
 async function getBookmarks() {
-  const response = await fetch(FILE_LOCATION, { cache: "no-store" });
-  if (!response.ok) {
-    console.error("Failed to fetch bookmarks file");
-    return;
+  try {
+    const response = await fetch(new URL(JSON_URL), { cache: "no-store" });
+    if (!response.ok) {
+      console.log("Unable to fetch files");
+      return;
+    }
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log("Unable to fetch files");
   }
-  const json = await response.json();
-  return json;
 }
 
 (async () => {
@@ -149,6 +220,7 @@ async function getBookmarks() {
   const storage = await chrome.storage.local.get(["extention-data"]);
   if (!storage["extention-data"]) {
     console.log("Extention init");
+    await removeOldData();
 
     // create main folder
     const mainFolderId = await createFolder(MAIN_FOLDER_NAME);
@@ -228,8 +300,5 @@ async function getBookmarks() {
     } else {
       console.log("File not changed");
     }
-
-    socialId = await findFolder("Socials", mainFolderId);
-    console.log("Socials folder ID: ", socialId);
-  }, 10000);
+  }, 60000);
 })();
