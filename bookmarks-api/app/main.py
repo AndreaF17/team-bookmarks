@@ -10,6 +10,8 @@ origins = [
     "*"     
 ]
 
+FILE_PATH = ""
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -18,6 +20,6 @@ app.add_middleware(
 @app.get("/cve-bookmarks")
 async def get_bookmarks():
     # read file
-    with open("/opt/bookmarks-links/CVE.json", "r") as file:
+    with open(FILE_PATH, "r") as file:
         return json.load(file)
 
